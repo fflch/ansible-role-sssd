@@ -17,3 +17,7 @@ sssd_redhat_packages:
   - "sssd-proxy"
   - "sssd-ipa"
   - "authconfig"
+
+sssd_realm: smbdomain.fflch.usp.br
+sssd_workgroup: smbdomain
+sssd_samba_server: vagrant_firstdc

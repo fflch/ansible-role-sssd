@@ -2,4 +2,10 @@
 - name: restart sssd
   service: name=sssd state=restarted
 
+- name: restart winbind
+  service: name=winbind state=restarted
+
+- name: restart smbd
+  service: name=smbd state=restarted
+
 

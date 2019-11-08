@@ -1,0 +1,37 @@
+# /etc/sssd/sssd.conf
+[nss]
+filter_groups = root
+filter_users = root
+reconnection_retries = 3
+
+[pam]
+reconnection_retries = 3
+
+[sssd]
+domains = {{ sssd_realm }}
+config_file_version = 2
+services = nss, pam
+default_domain_suffix = {{ sssd_realm | upper }}
+full_name_format = %1$s
+
+[domain/{{ sssd_realm | upper }}]
+ad_domain = {{ sssd_realm }}
+krb5_realm = {{ sssd_realm | upper }}
+realmd_tags = manages-system joined-with-samba
+cache_credentials = True
+id_provider = ad
+krb5_store_password_if_offline = True
+default_shell = /bin/bash
+ldap_id_mapping = True
+use_fully_qualified_names = True
+fallback_homedir = /home/%u
+access_provider = ad
+
+auth_provider = ad
+chpass_provider = ad
+access_provider = ad
+ldap_schema = ad
+dyndns_update = true
+dyndns_refresh_interval = 43200
+dyndns_update_ptr = true
+dyndns_ttl = 3600

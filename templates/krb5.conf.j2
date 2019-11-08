@@ -1,0 +1,18 @@
+[libdefaults]
+	default_realm = {{ sssd_realm | upper }}
+    dns_lookup_realm = false
+    dns_lookup_kdc = false
+    renew_lifetime = 7d
+
+[realms]
+	{{ sssd_realm |upper }} = {
+		kdc = {{ sssd_samba_server|upper }}.{{ sssd_realm|upper }}
+		admin_server  =  {{ sssd_samba_server|upper }}.{{ sssd_realm|upper }}
+	}
+
+[domain_realm]
+    .{{ sssd_realm }} = {{ sssd_realm | upper }}
+
+[logging]
+    default = SYSLOG
+

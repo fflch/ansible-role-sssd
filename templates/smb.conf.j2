@@ -1,0 +1,15 @@
+[global]
+workgroup = {{ sssd_workgroup | upper }}
+client signing = auto
+client use spnego = yes
+realm = {{ sssd_realm | upper }}
+security=ads
+kerberos method = secrets and keytab
+log file = /var/log/samba/smbd.log
+log level = 10
+
+# Turn off printing to avoid log spam
+load printers = no
+printing = bsd
+printcap name = /dev/null
+disable spoolss = yes

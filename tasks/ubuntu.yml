@@ -1,30 +1,71 @@
 ---
-- name: install sssd with ldap support
+- name: install packages
   package:
     name:
+      - samba
+      - samba-common
       - sssd
-      - sssd-ldap
+      - krb5-user
+#      - krb5-config
+      - adcli
+      - realmd
+#      - sssd-tools
+#      - libnss-sss
+#      - samba-libs
+#      - samba-dsdb-modules
+#      - packagekit
+#      - policykit-1
+#      - winbind
     state: present
   tags: [ sssd-install ]
 
-- name: template sssd.conf
+#- name: Check if machine is bound
+#  shell: /bin/bash -c "realm list | grep sssd"
+#  register: realmd_bound
+#  changed_when: false
+#  ignore_errors: true
+
+- name: template /etc/krb5.conf
   template:
-    src: sssd.conf.gentoo.j2
-    dest: /etc/sssd/sssd.conf
+    src: krb5.conf.j2
+    dest: /etc/krb5.conf
     owner: root
     group: root
     mode: 0600
-    backup: yes
-  notify: restart sssd
   tags : [ sssd-config ]
+
+- name: template /etc/samba/smb.conf
+  template:
+    src: smb.conf.j2
+    dest: /etc/samba/smb.conf
+    owner: root
+    group: root
+    mode: 0600
+  notify: 
+    - restart smbd
+  tags : [ sssd-config ]
+
+#- name: template sssd.conf
+#  template:
+#    src: sssd.conf.debian.j2
+#    dest: /etc/sssd/sssd.conf
+#    owner: root
+#    group: root
+#    mode: 0600
+#  notify:
+#    - restart smbd
+#    - restart sssd
+#  tags : [ sssd-config ]
+
+#- name: start sssd on boot
+#  service: name=sssd state=started enabled=yes
 
 - name: Make home directory
   lineinfile:
     path: /etc/pam.d/common-session
     line: 'session    required    pam_mkhomedir.so skel=/etc/skel/ umask=0022'
-  notify: restart sssd
+#  notify: restart sssd
   tags: [ sssd-config ]
 
-- name: start sssd on boot
-  service: name=sssd state=started enabled=yes
+
 
