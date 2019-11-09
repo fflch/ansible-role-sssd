@@ -1,18 +1,21 @@
 [libdefaults]
-	default_realm = {{ sssd_realm | upper }}
-    dns_lookup_realm = false
-    dns_lookup_kdc = false
-    renew_lifetime = 7d
+	default_realm = {{ domain_member_realm | upper }}
+	dns_lookup_realm = false
+	dns_lookup_kdc = true
+	kdc_timesync = 1
+	ccache_type = 4
+	forwardable = true
+	proxiable = true
+    fcc-mit-ticketflags = true
 
 [realms]
-	{{ sssd_realm |upper }} = {
-		kdc = {{ sssd_samba_server|upper }}.{{ sssd_realm|upper }}
-		admin_server  =  {{ sssd_samba_server|upper }}.{{ sssd_realm|upper }}
+	{{ domain_member_realm |upper }} = {
+		kdc = {{ domain_member_samba_server|upper }}.{{ domain_member_realm|upper }}
+		admin_server = {{ domain_member_samba_server|upper }}.{{ domain_member_realm|upper }}
 	}
 
 [domain_realm]
-    .{{ sssd_realm }} = {{ sssd_realm | upper }}
+    .{{ domain_member_realm }} = {{ domain_member_realm | upper }}
 
 [logging]
     default = SYSLOG
-

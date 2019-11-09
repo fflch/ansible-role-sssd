@@ -1,15 +1,19 @@
 [global]
-workgroup = {{ sssd_workgroup | upper }}
-client signing = auto
-client use spnego = yes
-realm = {{ sssd_realm | upper }}
-security=ads
-kerberos method = secrets and keytab
-log file = /var/log/samba/smbd.log
-log level = 10
+    workgroup = {{ domain_member_workgroup | upper }}
+    realm = {{ domain_member_realm | upper }}
+    security = ADS
 
-# Turn off printing to avoid log spam
-load printers = no
-printing = bsd
-printcap name = /dev/null
-disable spoolss = yes
+    idmap config * : backend = tdb        
+    idmap config *:range = 50000-1000000
+	
+    template homedir = /home/%U
+    template shell = /bin/bash
+    winbind use default domain = true
+    winbind offline logon = false
+    winbind nss info = rfc2307
+    winbind enum users = yes
+    winbind enum groups = yes
+
+    vfs objects = acl_xattr
+    map acl inherit = Yes
+    store dos attributes = Yes
