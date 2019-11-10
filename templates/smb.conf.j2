@@ -17,3 +17,7 @@
     vfs objects = acl_xattr
     map acl inherit = Yes
     store dos attributes = Yes
+
+    # Interfaces que o samba vai responder
+    bind interfaces only = True
+    interfaces  = 'enp0s8 lo'
