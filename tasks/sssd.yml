@@ -5,14 +5,6 @@
       - sssd
     state: present
 
-- name: template nsswitch.conf
-  template:
-    src: nsswitch.conf.j2
-    dest:  /etc/nsswitch.conf
-    owner: root
-    group: root
-    mode: 0600
-
 - name: template /etc/sssd/sssd.conf
   template:
     src: sssd.conf.j2
@@ -20,12 +12,35 @@
     owner: root
     group: root
     mode: 0600
+   
+- name: "Configure nsswitch - passwd"
+  lineinfile:
+    path: /etc/nsswitch.conf
+    regexp: '^passwd:'
+    line: 'passwd:         compat sss'
+
+- name: "Configure nsswitch - group"
+  lineinfile:
+    path: /etc/nsswitch.conf
+    regexp: '^group:'
+    line: 'group:          compat sss'
+
+- name: "Configure nsswitch - netgroup"
+  lineinfile:
+    path: /etc/nsswitch.conf
+    regexp: 'netgroup:'
+    line: 'netgroup:         nis sss'
 
 - name: Make home directory
   lineinfile:
     path: /etc/pam.d/common-session
     line: 'session    required    pam_mkhomedir.so skel=/etc/skel/ umask=0022'
-#  notify: restart sssd
+
+- name: start sssd on boot
+  service: name=sssd state=started enabled=yes
+
+- name: "Update pam"
+  shell: "/usr/sbin/pam-auth-update --package"
 
 
 

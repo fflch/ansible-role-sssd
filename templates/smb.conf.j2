@@ -31,4 +31,4 @@
     bind interfaces only = True
     interfaces  = {{ domain_member_interfaces | default('enp0s8 lo') }}
 
-{{ domain_member_smb_extra }}
+{{ domain_member_smb_extra | default(' ')}}

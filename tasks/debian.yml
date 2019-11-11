@@ -27,6 +27,10 @@
     owner: root
     group: root
     mode: 0600
+  notify: restart smbd
+
+- name: "Joining to domain"
+  shell: "net ads join -U Administrator%{{ domain_member_password }}"
 
 
 
