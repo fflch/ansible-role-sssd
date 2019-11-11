@@ -4,15 +4,5 @@ domain_member_password: 123
 domain_member_workgroup: smbdomain
 domain_member_samba_server: vagrant_firstdc
 domain_member_configure_sssd: True
+domain_member_interfaces: 'enp0s8 lo'
 domain_member_smb_extra: " "
-
-# not tested on debian yet
-domain_member_pam_files:
-  - fingerprint-auth
-  - fingerprint-auth-ac
-  - password-auth
-  - password-auth-ac
-  - smartcard-auth
-  - smartcard-auth-ac
-  - system-auth
-  - system-auth-ac
