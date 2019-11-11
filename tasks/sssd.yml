@@ -13,6 +13,14 @@
     group: root
     mode: 0600
 
+- name: template /etc/sssd/sssd.conf
+  template:
+    src: sssd.conf.j2
+    dest:  /etc/sssd/sssd.conf
+    owner: root
+    group: root
+    mode: 0600
+
 - name: Make home directory
   lineinfile:
     path: /etc/pam.d/common-session

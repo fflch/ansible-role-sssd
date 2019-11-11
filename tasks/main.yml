@@ -2,5 +2,5 @@
 - include: debian.yml
   when: ansible_os_family == "Debian"
 
-- include: debian.yml
+- include: sssd.yml
   when: configure_sssd == True
