@@ -4,3 +4,4 @@ domain_member_password: 123
 domain_member_workgroup: smbdomain
 domain_member_samba_server: vagrant_firstdc
 domain_member_configure_sssd: True
+domain_member_smb_extra: " "

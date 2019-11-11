@@ -29,6 +29,11 @@
     mode: 0600
   notify: restart smbd
 
+- name: /etc/hosts
+  template:
+    src: hosts.j2
+    dest: /etc/hosts
+
 - name: "Joining to domain"
   shell: "net ads join -U Administrator%{{ domain_member_password }}"
 

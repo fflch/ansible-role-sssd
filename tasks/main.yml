@@ -3,4 +3,4 @@
   when: ansible_os_family == "Debian"
 
 - include: sssd.yml
-  when: domain_member_configure_sssd == True
+  when: domain_member_configure_sssd

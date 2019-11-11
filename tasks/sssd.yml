@@ -31,16 +31,31 @@
     regexp: 'netgroup:'
     line: 'netgroup:         nis sss'
 
-- name: Make home directory
+- name: "Configure PAM Configuration"
+  shell: DEBIAN_FRONTEND=noninteractive pam-auth-update
+
+- name: home directory
   lineinfile:
     path: /etc/pam.d/common-session
     line: 'session    required    pam_mkhomedir.so skel=/etc/skel/ umask=0022'
 
-- name: start sssd on boot
-  service: name=sssd state=started enabled=yes
+- name: "Configure PAM - /etc/pam.d/common-password"
+  replace:
+    path: /etc/pam.d/common-password
+    regexp: ' use_authtok'
+    replace: ''
 
 - name: "Update pam"
   shell: "/usr/sbin/pam-auth-update --package"
 
+- name: start sssd on boot
+  service: name=sssd state=started enabled=yes
 
+- name:  "sudo"
+  template:
+    src: sudo.j2
+    dest: /etc/sudoers.d/domain-admins
+    owner: root
+    group: root
+    mode: 0440
 
