@@ -2,6 +2,7 @@
 - name: install sssd packages
   package:
     name:
+      - libnss-winbind
       - sssd
     state: present
 
@@ -17,13 +18,13 @@
   lineinfile:
     path: /etc/nsswitch.conf
     regexp: '^passwd:'
-    line: 'passwd:         compat sss'
+    line: 'passwd:         files sss'
 
 - name: "Configure nsswitch - group"
   lineinfile:
     path: /etc/nsswitch.conf
     regexp: '^group:'
-    line: 'group:          compat sss'
+    line: 'group:          files sss'
 
 - name: "Configure nsswitch - netgroup"
   lineinfile:
@@ -39,17 +40,22 @@
     path: /etc/pam.d/common-session
     line: 'session    required    pam_mkhomedir.so skel=/etc/skel/ umask=0022'
 
-- name: "Configure PAM - /etc/pam.d/common-password"
-  replace:
-    path: /etc/pam.d/common-password
-    regexp: ' use_authtok'
-    replace: ''
+#- name: "Configure PAM - /etc/pam.d/common-password"
+#  replace:
+#    path: /etc/pam.d/common-password
+#    regexp: ' use_authtok'
+#    replace: ''
 
 - name: "Update pam"
   shell: "/usr/sbin/pam-auth-update --package"
 
 - name: start sssd on boot
   service: name=sssd state=started enabled=yes
+
+- name: Restart service sssd
+  service:
+    name: sssd
+    state: restarted
 
 - name:  "sudo"
   template:

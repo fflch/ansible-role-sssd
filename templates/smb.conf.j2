@@ -3,6 +3,8 @@
     realm = {{ domain_member_realm | upper }}
     security = ADS
 
+    log file = /var/log/samba/smbd.log
+
     idmap config * : backend = tdb        
     idmap config *:range = 50000-1000000
 	
@@ -14,12 +16,14 @@
     winbind enum users = yes
     winbind enum groups = yes
 
-    winbind refresh tickets = yes
-    client signing = yes
+    client signing = auto
     kerberos method = secrets and keytab
     client use spnego = yes
-    domain master = no
+
     preferred master = no
+    domain master = no
+    local master = no
+#    winbind refresh tickets = yes
 #    allow trusted domains = yes
 #    encrypt passwords = yes
 
@@ -31,4 +35,4 @@
     bind interfaces only = True
     interfaces  = {{ domain_member_interfaces | default('enp0s8 lo') }}
 
-{{ domain_member_smb_extra | default(' ')}}
+{{ domain_member_smb_extra | default(' ') }}

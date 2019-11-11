@@ -6,10 +6,8 @@
       - samba-common
       - krb5-user
       - krb5-config
-      - libnss-sss
       - winbind
       - libpam-winbind
-      - libnss-winbind
     state: present
 
 - name: template /etc/krb5.conf
@@ -34,8 +32,26 @@
     src: hosts.j2
     dest: /etc/hosts
 
+- hostname:
+    name: proaluno4.smbdomain.fflch.usp.br
+
 - name: "Joining to domain"
   shell: "net ads join -U Administrator%{{ domain_member_password }}"
+
+- name: Restart service nmbd
+  service:
+    name: nmbd
+    state: restarted
+
+- name: Restart service smbd
+  service:
+    name: smbd
+    state: restarted
+
+- name: Restart service winbind
+  service:
+    name: winbind
+    state: restarted
 
 
 

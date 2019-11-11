@@ -8,6 +8,9 @@
 	proxiable = true
     fcc-mit-ticketflags = true
 
+    # https://access.redhat.com/discussions/3370851
+    rdns=false
+
 [realms]
 	{{ domain_member_realm |upper }} = {
 		kdc = {{ domain_member_samba_server|upper }}.{{ domain_member_realm|upper }}
