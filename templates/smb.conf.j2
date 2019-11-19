@@ -32,7 +32,7 @@
     store dos attributes = Yes
 
     # Interfaces que o samba vai responder
-    bind interfaces only = True
-    interfaces  = {{ domain_member_interfaces | default('enp0s8 lo') }}
+    #bind interfaces only = True
+    #interfaces  = {{ domain_member_interfaces | default('enp0s8 lo') }}
 
 {{ domain_member_smb_extra | default(' ') }}

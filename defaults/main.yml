@@ -4,5 +4,7 @@ domain_member_password: 123
 domain_member_workgroup: smbdomain
 domain_member_samba_server: vagrant_firstdc
 domain_member_configure_sssd: True
-domain_member_interfaces: 'enp0s8 lo'
 domain_member_smb_extra: " "
+
+# não está sendo usado por enquanto
+domain_member_interfaces: 'enp0s8 lo'

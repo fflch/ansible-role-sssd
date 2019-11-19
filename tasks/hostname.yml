@@ -1,0 +1,15 @@
+---
+- name: /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    # Exemplo "127.0.1.1 proaluno4.smbdomain.fflch.usp.br proaluno4"
+    regexp: '^127.0.1.1'
+    line: "127.0.1.1 {{inventory_hostname}}.{{domain_member_realm}} {{inventory_hostname}}"
+
+# Se ao invés de usarmos 127.0.1.1  quisermos usar o ip real, há dua opções:
+#  {{ ansible_default_ipv4.address }}
+#  {{ hostvars['desktops'].ansible_host }}
+
+- hostname:
+    name: "{{inventory_hostname}}.{{domain_member_realm}}"
+
