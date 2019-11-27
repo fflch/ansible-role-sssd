@@ -1,0 +1,6 @@
+---
+- name: /etc/adduser.conf
+  lineinfile:
+    path: /etc/adduser.conf
+    regexp: '^DIR_MODE='
+    line: "DIR_MODE=0700"
