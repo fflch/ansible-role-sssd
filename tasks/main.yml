@@ -38,5 +38,4 @@
   file:
     dest: /var/.samba_domain_member
     state: touch
-  when:
-    - not samba_domain_member_check['stat']['exists']|bool
+  when: not samba_domain_member_check['stat']['exists']|bool
