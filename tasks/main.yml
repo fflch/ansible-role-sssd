@@ -39,5 +39,4 @@
     dest: /var/.samba_domain_member
     state: touch
   when:
-    - samba_domain_member_check['changed']
     - not samba_domain_member_check['stat']['exists']|bool
