@@ -23,7 +23,7 @@
   shell: "sleep 5 && reboot"
   async: 1
   poll: 0
-  when: not samba_ad_created_check['stat']['exists']|bool
+  when: not samba_domain_member_check['stat']['exists']|bool
 
 - name: Wait for the reboot to complete if there was a change.
   wait_for_connection:
@@ -31,7 +31,7 @@
     sleep: 5
     delay: 5
     timeout: 600
-  when: not samba_ad_created_check['stat']['exists']|bool
+  when: not samba_domain_member_check['stat']['exists']|bool
 
 # Depois do reboot, crio o arquivo /var/.samba_domain_member se ele não existir
 - name: marking domain member as created
