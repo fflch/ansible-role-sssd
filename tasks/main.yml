@@ -1,8 +1,43 @@
 ---
+# adapted from https://github.com/mrlesmithjr/ansible-samba/blob/master/tasks/create_domain.yml
+# Verificamos se o arquivo /var/.samba_domain_member existe
+- name: create_domain_member
+  stat:
+    path: /var/.samba_domain_member
+  register: samba_domain_member_check
+
 - include: hostname.yml
 
 - include: debian.yml
   when: ansible_os_family == "Debian"
+  register: samba_domain_member_created
 
+# se além de join, queremos que o usuário faça login na máquina
 - include: sssd.yml
   when: domain_member_configure_sssd
+
+# Neste momento, só rebootar a máquina se 
+# o arquivo /var/.samba_domain_member NÃO existir
+
+- name: Reboot immediately if there was a change.
+  shell: "sleep 5 && reboot"
+  async: 1
+  poll: 0
+  when: not samba_ad_created_check['stat']['exists']|bool
+
+- name: Wait for the reboot to complete if there was a change.
+  wait_for_connection:
+    connect_timeout: 20
+    sleep: 5
+    delay: 5
+    timeout: 600
+  when: not samba_ad_created_check['stat']['exists']|bool
+
+# Depois do reboot, crio o arquivo /var/.samba_domain_member se ele não existir
+- name: marking domain member as created
+  file:
+    dest: /var/.samba_domain_member
+    state: touch
+  when:
+    - samba_domain_member_check['changed']
+    - not samba_domain_member_check['stat']['exists']|bool
