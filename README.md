@@ -1,2 +1,1 @@
-http://koo.fi/blog/2015/06/16/ubuntu-14-04-active-directory-authentication/
-https://wiki.debian.org/AuthenticatingLinuxWithActiveDirectorySssd
+ansible role to insert debian 10 in samba as domain member
