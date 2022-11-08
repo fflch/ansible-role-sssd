@@ -1,0 +1,16 @@
+- name: creates domain_member_printers
+  set_fact: 
+    domain_member_printers: []
+
+- name: creates printers_from_csv
+  set_fact: 
+    printers_from_csv: "{{ domain_member_csv_printers.split('\n') }}"
+
+- name: monta lista de dicionários domain_member_printers
+  set_fact: 
+    domain_member_printers: > 
+      {{ domain_member_printers + [{ 
+        'name': item.split(',')[0]
+      }]}}
+  with_items: 
+    - "{{ printers_from_csv }}"

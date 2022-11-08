@@ -1,0 +1,8 @@
+- name: Creates directory /var/spool/samba
+  file:
+    path: /var/spool/samba
+    state: directory
+    owner: root
+    group: root
+    mode: '0777'
+    recurse: yes

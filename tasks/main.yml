@@ -8,6 +8,9 @@
 
 - include: hostname.yml
 
+- include: spool.yml
+- include: read_csv_printers.yml
+
 - include: debian.yml
   when: ansible_os_family == "Debian"
   register: samba_domain_member_created

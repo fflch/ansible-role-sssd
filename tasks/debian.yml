@@ -20,7 +20,7 @@
 
 - name: template /etc/samba/smb.conf
   template:
-    src: smb.conf.j2
+    src: "{{ domain_member_smb_file }}"
     dest: /etc/samba/smb.conf
     owner: root
     group: root
