@@ -18,13 +18,17 @@
   lineinfile:
     path: /etc/nsswitch.conf
     regexp: '^passwd:'
-    line: 'passwd:         files sss'
+    #line: 'passwd:         files sss'
+    # winbind inserido por conta do domain member como servidor de impressão
+    # verificar se não vai impactar nas máquinas clientes da pró-aluno
+    line: 'passwd:         files sss winbind'
 
 - name: "Configure nsswitch - group"
   lineinfile:
     path: /etc/nsswitch.conf
     regexp: '^group:'
-    line: 'group:          files sss'
+    #line: 'group:          files sss'
+    line: 'group:          files sss winbind'
 
 - name: "Configure nsswitch - netgroup"
   lineinfile:
@@ -64,4 +68,3 @@
     owner: root
     group: root
     mode: 0440
-
