@@ -1,15 +1,4 @@
 ---
-- name: install packages
-  package:
-    name:
-      - samba
-      - samba-common
-      - krb5-user
-      - krb5-config
-      - winbind
-      - libpam-winbind
-    state: present
-
 - name: template /etc/krb5.conf
   template:
     src: "{{ domain_member_krb5_file }}"

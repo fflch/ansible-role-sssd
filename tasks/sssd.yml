@@ -1,11 +1,4 @@
 ---
-- name: install sssd packages
-  package:
-    name:
-      - libnss-winbind
-      - sssd
-    state: present
-
 - name: template /etc/sssd/sssd.conf
   template:
     src: sssd.conf.j2

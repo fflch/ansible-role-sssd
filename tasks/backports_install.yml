@@ -1,0 +1,19 @@
+---
+- name: Add backports repository
+  apt_repository:
+    repo: 'deb http://deb.debian.org/debian bullseye-backports main'
+    state: present
+    update_cache: true
+
+- name: Install samba packages from OS
+  apt:
+    default_release: bullseye-backports
+    pkg:
+      - samba
+      - samba-common
+      - krb5-user
+      - krb5-config
+      - winbind
+      - libpam-winbind
+      - libnss-winbind
+      - sssd

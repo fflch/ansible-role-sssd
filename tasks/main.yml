@@ -11,6 +11,12 @@
 - include: spool.yml
 - include: read_csv_printers.yml
 
+- import_tasks: install.yml
+  when: not domain_member_use_backports
+
+- import_tasks: backports_install.yml
+  when: domain_member_use_backports
+
 - include: debian.yml
   when: ansible_os_family == "Debian"
   register: samba_domain_member_created

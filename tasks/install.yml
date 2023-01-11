@@ -1,0 +1,12 @@
+- name: install packages
+  package:
+    name:
+      - samba
+      - samba-common
+      - krb5-user
+      - krb5-config
+      - winbind
+      - libpam-winbind
+      - libnss-winbind
+      - sssd
+    state: present
