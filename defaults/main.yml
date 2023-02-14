@@ -8,6 +8,9 @@ domain_member_samba_server: vagrant_firstdc
 domain_member_configure_sssd: True
 domain_member_smb_extra: " "
 domain_member_use_backports: False
+domain_member_use_backports_printers: False
+domain_member_configure_winbindd: False
+
 
 # não está sendo usado por enquanto
 domain_member_interfaces: 'enp0s8 lo'

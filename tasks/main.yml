@@ -17,6 +17,9 @@
 - import_tasks: backports_install.yml
   when: domain_member_use_backports
 
+- import_tasks: backports_install_printers.yml
+  when: domain_member_use_backports_printers
+
 - include: debian.yml
   when: ansible_os_family == "Debian"
   register: samba_domain_member_created
@@ -24,6 +27,9 @@
 # se além de join, queremos que o usuário faça login na máquina
 - include: sssd.yml
   when: domain_member_configure_sssd
+
+- include: winbindd.yml
+  when: domain_member_configure_winbindd  
 
 # Neste momento, só rebootar a máquina se 
 # o arquivo /var/.samba_domain_member NÃO existir
