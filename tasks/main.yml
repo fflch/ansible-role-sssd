@@ -31,6 +31,12 @@
 - include: winbindd.yml
   when: domain_member_configure_winbindd  
 
+- include: printers_drivers.yml
+  when: domain_member_printers_drivers 
+
+- include: SePrintOperatorPrivilege.yml
+  when: domain_member_SePrintOperatorPrivilege    
+
 # Neste momento, só rebootar a máquina se 
 # o arquivo /var/.samba_domain_member NÃO existir
 
