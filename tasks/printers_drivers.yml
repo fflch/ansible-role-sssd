@@ -3,6 +3,6 @@
     path: /srv/samba/printer_drivers
     state: directory
     owner: root
-    group: "{{ domain_member_realm }}\Domain Admins" 
+    group: "{{ domain_member_realm }}\\Domain Admins" 
     mode: '2775'
     recurse: yes
