@@ -6,7 +6,4 @@ domain_member_samba_server: firstdc
 domain_member_smb_extra: " "
 domain_member_use_backports: False
 
-# não está sendo usado por enquanto
-domain_member_interfaces: 'enp0s8 lo'
-
 
