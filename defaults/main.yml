@@ -1,6 +1,4 @@
 ---
-domain_member_smb_file: 'smb.conf.j2'
-domain_member_krb5_file: 'krb5.conf.j2'
 domain_member_realm: smbdomain.local.br
 domain_member_password: 123 
 domain_member_workgroup:  "{{ domain_member_realm.split('.')[0]|upper }}"
