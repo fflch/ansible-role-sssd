@@ -34,9 +34,6 @@
 - include: printers_drivers.yml
   when: domain_member_printers_drivers 
 
-- include: SePrintOperatorPrivilege.yml
-  when: domain_member_SePrintOperatorPrivilege    
-
 # Neste momento, só rebootar a máquina se 
 # o arquivo /var/.samba_domain_member NÃO existir
 
@@ -53,6 +50,9 @@
     delay: 5
     timeout: 600
   when: not samba_domain_member_check['stat']['exists']|bool
+  
+- include: SePrintOperatorPrivilege.yml
+  when: domain_member_SePrintOperatorPrivilege    
 
 # Depois do reboot, crio o arquivo /var/.samba_domain_member se ele não existir
 - name: marking domain member as created
