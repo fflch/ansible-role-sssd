@@ -8,17 +8,11 @@
 
 - include: hostname.yml
 
-- include: spool.yml
-- include: read_csv_printers.yml
-
 - import_tasks: install.yml
   when: not domain_member_use_backports
 
 - import_tasks: backports_install.yml
   when: domain_member_use_backports
-
-- import_tasks: backports_install_printers.yml
-  when: domain_member_use_backports_printers
 
 - include: debian.yml
   when: ansible_os_family == "Debian"
@@ -27,12 +21,6 @@
 # se além de join, queremos que o usuário faça login na máquina
 - include: sssd.yml
   when: domain_member_configure_sssd
-
-- include: winbindd.yml
-  when: domain_member_configure_winbindd  
-
-- include: printers_drivers.yml
-  when: domain_member_printers_drivers 
 
 # Neste momento, só rebootar a máquina se 
 # o arquivo /var/.samba_domain_member NÃO existir
@@ -49,10 +37,7 @@
     sleep: 5
     delay: 5
     timeout: 600
-  when: not samba_domain_member_check['stat']['exists']|bool
-  
-- include: SePrintOperatorPrivilege.yml
-  when: domain_member_SePrintOperatorPrivilege    
+  when: not samba_domain_member_check['stat']['exists']|bool 
 
 # Depois do reboot, crio o arquivo /var/.samba_domain_member se ele não existir
 - name: marking domain member as created

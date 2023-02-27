@@ -1,23 +1,14 @@
 ---
 domain_member_smb_file: 'smb.conf.j2'
 domain_member_krb5_file: 'krb5.conf.j2'
-domain_member_realm: smbdomain.fflch.usp.br
+domain_member_realm: smbdomain.local.br
 domain_member_password: 123 
 domain_member_workgroup:  "{{ domain_member_realm.split('.')[0]|upper }}"
-domain_member_samba_server: vagrant_firstdc
-domain_member_configure_sssd: True
+domain_member_samba_server: firstdc
 domain_member_smb_extra: " "
 domain_member_use_backports: False
-domain_member_use_backports_printers: False
-domain_member_configure_winbindd: False
-domain_member_printers_drivers: False
 
 # não está sendo usado por enquanto
 domain_member_interfaces: 'enp0s8 lo'
-
-# variáveis para printers server
-domain_member_cups_server: '192.168.8.43:631'
-domain_member_csv_printers: "{{ lookup('file', '../../files/printers.csv') }}"
-domain_member_printers: []
 
 

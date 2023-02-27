@@ -1,4 +1,4 @@
-ansible role to insert debian 10 in samba as domain member
+ansible role to insert debian 11 in samba as domain member
 
 ## troubleshooting
 
