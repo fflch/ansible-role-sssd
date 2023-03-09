@@ -17,7 +17,7 @@
   notify: restart smbd
 
 - name: "Joining to domain"
-  shell: "net ads join -U Administrator%{{ domain_member_password }}"
+  shell: "net ads join -U {{domain_member_admin_user}}%{{ domain_member_password }}"
 
 - name: Restart service nmbd
   service:
