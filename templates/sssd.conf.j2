@@ -6,6 +6,7 @@ reconnection_retries = 3
 
 [pam]
 reconnection_retries = 3
+offline_credentials_expiration = 365
 
 [sssd]
 domains = {{ domain_member_realm }}
@@ -35,3 +36,5 @@ dyndns_update = true
 dyndns_refresh_interval = 43200
 dyndns_update_ptr = true
 dyndns_ttl = 3600
+
+cache_credentials=TRUE
